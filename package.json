@@ -2,23 +2,23 @@
   "name": "language-odin",
   "version": "0.1.0",
   "description": "Odin language support for Atom",
-  "keywords": [
-    "language",
-    "grammar",
-    "syntax",
-    "odin"
-  ],
-  "license": "MIT",
   "engines": {
     "atom": ">0.50.0 <2.0.0"
   },
   "dependencies": {},
-  "homepage": "https://github.com/theenigmablade/atom-language-jai",
   "repository": {
     "type": "git",
-    "url": "https://github.com/theenigmablade/atom-language-jai.git"
+    "url": "https://github.com/FelixBrendel/atom-language-odin.git"
   },
   "bugs": {
-    "url": "https://github.com/theenigmablade/atom-language-jai/issues"
-  }
+    "url": "https://github.com/FelixBrendel/atom-language-odin/issues"
+  },
+  "keywords": [
+    "language",
+    "grammar",
+    "syntax",
+    "jai"
+  ],
+  "readmeFilename": "README.md",
+  "license": "MIT"
 }
