@@ -1,12 +1,12 @@
 {
-  "name": "language-jai",
-  "version": "0.1.4",
-  "description": "JAI language support for Atom",
+  "name": "language-odin",
+  "version": "0.1.0",
+  "description": "Odin language support for Atom",
   "keywords": [
     "language",
     "grammar",
     "syntax",
-    "jai"
+    "odin"
   ],
   "license": "MIT",
   "engines": {

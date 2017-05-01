@@ -1,9 +1,9 @@
-name: 'JAI'
-scopeName: 'source.jai'
-fileTypes: ['jai']
+name: 'odin'
+scopeName: 'source.odin'
+fileTypes: ['odin']
 
 repository: {
-  
+
   #   #####
   #  #     #  ####  #    # #    # ###### #    # #####  ####
   #  #       #    # ##  ## ##  ## #      ##   #   #   #
@@ -11,30 +11,30 @@ repository: {
   #  #       #    # #    # #    # #      #  # #   #        #
   #  #     # #    # #    # #    # #      #   ##   #   #    #
   #   #####   ####  #    # #    # ###### #    #   #    ####
-  
+
   'line_comment': {
     comment: 'Single-line comment'
-    name: 'comment.line.jai'
+    name: 'comment.line.odin'
     begin: '//'
     end: '$'
   }
   'block_comment': {
     comment: 'Block comment'
-    name: 'comment.block.jai'
+    name: 'comment.block.odin'
     begin: '/\\*'
     end: '\\*/'
     patterns: [
       { include: '#block_comment' }
     ]
   }
-  
+
   'comments': {
     patterns: [
       { include: '#block_comment' }
       { include: '#line_comment' }
     ]
   }
-  
+
   #  #
   #  #       # ##### ###### #####    ##   #       ####
   #  #       #   #   #      #    #  #  #  #      #
@@ -42,7 +42,7 @@ repository: {
   #  #       #   #   #      #####  ###### #           #
   #  #       #   #   #      #   #  #    # #      #    #
   #  ####### #   #   ###### #    # #    # ######  ####
-  
+
   'literals': {
     patterns: [
       { include: '#string_literal' }
@@ -52,102 +52,102 @@ repository: {
       { include: '#null_literal' }
     ]
   }
-  
+
   ## Strings
-  
+
   'escaped_character': {
-    name: 'constant.character.escape.jai'
+    name: 'constant.character.escape.odin'
     match: '\\\\(x\\h{2}|[0-2][0-7]{,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.)'
   }
-  
+
   'string_literal': {
     comment: 'Double-quote string literal'
-    name: 'string.quoted.double.jai'
+    name: 'string.quoted.double.odin'
     begin: '"'
     end: '"'
     patterns: [
       { include: '#escaped_character' }
     ]
   }
-  
+
   'character_literal': {
     comment: 'Character literal'
-    name: 'string.quoted.single.jai'
+    name: 'string.quoted.single.odin'
     match: '(b?\')(?:[^\'\\\\]|\\\\(?:x\\h{2}|[0-2][0-7]{,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.))([^\']*)(\')'
     captures: {
       '1': { name: '' }
-      '2': { name: 'invalid.illegal.jai' }
+      '2': { name: 'invalid.illegal.odin' }
       '3': { name: '' }
     }
   }
-    
+
   ## Numbers
-  
+
   'number_literal': {
     patterns: [
       { include: '#floating_point_literal' }
       { include: '#integer_literal' }
     ]
   }
-  
+
   'floating_point_literal': {
     patterns: [
       {
         comment: 'Floating point literal (basic)'
-        name: 'constant.numeric.float.jai'
+        name: 'constant.numeric.float.odin'
         match: '\\b([0-9][0-9_]*\\.[0-9][0-9_]*)\\b'
       }
       {
         comment: 'Floating point literal (typed)'
-        name: 'constant.numeric.float.jai'
+        name: 'constant.numeric.float.odin'
         match: '\\b([0-9][0-9_]*(?:\\.[0-9][0-9_]*)?)(f32|f64)\\b'
       }
       {
         comment: 'Floating point literal (exponent)'
-        name: 'constant.numeric.float.jai'
+        name: 'constant.numeric.float.odin'
         match: '\\b([0-9][0-9_]*(?:\\.[0-9][0-9_]*)?[eE][+-]?[0-9_]+)(f32|f64)?\\b'
       }
       {
         comment: 'Floating point literal (hexadecimal)'
-        name: 'constant.numeric.integer.hexadecimal.jai'
+        name: 'constant.numeric.integer.hexadecimal.odin'
         match: '\\b0h[a-fA-F0-9_]+\\b'
       }
     ]
   }
-  
+
   'integer_literal': {
     patterns: [
       {
         comment: 'Integer literal (decimal)'
-        name: 'constant.numeric.integer.decimal.jai'
+        name: 'constant.numeric.integer.decimal.odin'
         match: '\\b[0-9][0-9_]*\\b'
       }
       {
         comment: 'Integer literal (hexadecimal)'
-        name: 'constant.numeric.integer.hexadecimal.jai'
+        name: 'constant.numeric.integer.hexadecimal.odin'
         match: '\\b0x[a-fA-F0-9_]+\\b'
       }
       {
         comment: 'Integer literal (binary)'
-        name: 'constant.numeric.integer.binary.jai'
+        name: 'constant.numeric.integer.binary.odin'
         match: '\\b0b[01_]+\\b'
       }
     ]
   }
-  
+
   ## Other
-  
+
   'boolean_literal': {
     comment: 'Boolean constant'
-    name: 'constant.language.boolean.jai'
+    name: 'constant.language.boolean.odin'
     match: '\\b(true|false)\\b'
   }
-  
+
   'null_literal': {
-    name: 'constant.language.null.jai'
+    name: 'constant.language.null.odin'
     match: '\\bnull\\b'
   }
-  
+
   #  #    #
   #  #   #  ###### #   # #    #  ####  #####  #####   ####
   #  #  #   #       # #  #    # #    # #    # #    # #
@@ -155,14 +155,14 @@ repository: {
   #  #  #   #        #   # ## # #    # #####  #    #      #
   #  #   #  #        #   ##  ## #    # #   #  #    # #    #
   #  #    # ######   #   #    #  ####  #    # #####   ####
-  
+
   'keywords':
     patterns: [
       { include: '#value_keywords' }
       { include: '#modifiers' }
       { include: '#control' }
     ]
-  
+
   'value_keywords':
     patterns: [
       { include: '#types' }
@@ -170,65 +170,65 @@ repository: {
       { include: '#special_variables' }
       { include: '#generic' }
     ]
-  
+
   ## Modifiers
-  
+
   'modifiers':
     patterns: [
       {
         comment: 'Storage modifier'
-        name: 'storage.modifier.jai'
-        match: '\\b(SOA|using)\\b'
+        name: 'storage.modifier.odin'
+        match: '\\b(SOA|using|immutable)\\b'
       }
     ]
-  
+
   ## Types
-  
+
   'types':
     patterns: [
       {
-        name: 'storage.type.core.jai'
-        match: '\\b(int|float|double|bool|char|string|void)\\b'
+        name: 'storage.type.core.odin'
+        match: '\\b(int|float|double|bool|rune|string|void|vector)\\b'
       }
       {
-        name: 'storage.type.core.jai'
-        match: '\\b(u8|u16|u32|u64|float32|float64|s8|s16|s32|s64)\\b'
+        name: 'storage.type.core.odin'
+        match: '\\b(u8|u16|u32|u64|f32|f64|i8|i16|i32|i64)\\b'
       }
       {
-        name: 'storage.type.struct.core.jai'
+        name: 'storage.type.struct.core.odin'
         match: '\\b(Type)\\b'
       }
     ]
-  
+
   ## Control
-  
+
   'control':
     comment: 'Control keyword'
-    name: 'keyword.control.jai'
-    match: '\\b(break|continue|else|if|in|for|match|return|while)\\b'
-  
+    name: 'keyword.control.odin'
+    match: '\\b(break|continue|else|if|in|for|match|return|give)\\b'
+
   ## Special values
-  
+
   'special_variables':
     patterns: [
       { include: '#self' }
       { include: '#initializer' }
       {
         match: '\\bit\\b'
-        name: 'variable.language.it.jai'
+        name: 'variable.language.it.odin'
       }
     ]
-  
+
   'self':
     comment: 'Self variable'
-    name: 'variable.language.self.jai'
+    name: 'variable.language.self.odin'
     match: '\\bself\\b'
-  
+
   'initializer':
     comment: 'Empty struct initializer'
-    name: 'constant.language.jai'
+    name: 'constant.language.odin'
     match: '---'
-  
+
   #  #######
   #  #     # #####  ###### #####    ##   #####  ####  #####   ####
   #  #     # #    # #      #    #  #  #    #   #    # #    # #
@@ -236,60 +236,60 @@ repository: {
   #  #     # #####  #      #####  ######   #   #    # #####       #
   #  #     # #      #      #   #  #    #   #   #    # #   #  #    #
   #  ####### #      ###### #    # #    #   #    ####  #    #  ####
-  
+
   'operators': {
     patterns: [
       {
         comment: ''
-        name: 'keyword.operator.jai'
+        name: 'keyword.operator.odin'
         match: '->|=>|::|:|\\$\\$|\\.\\.|xx'
       }
       {
         comment: 'Assignment operator'
-        name: 'keyword.operator.assignment.jai'
+        name: 'keyword.operator.assignment.odin'
         match: '\\+=|-=|/=|\\*=|%=|\\^=|&=|\\|=|<<=|>>=|:=|='
       }
       {
         comment: 'Comparison operator'
-        name: 'keyword.operator.comparison.jai'
+        name: 'keyword.operator.comparison.odin'
         match: '&&|\\|\\||==|!=|<(?!<)|>(?!>)|>=|<='
       }
       {
         comment: 'Arithmetic operator'
-        name: 'keyword.operator.arithmetic.jai'
-        match: '!|\\+(?!\\+)|-(?!-)|/|\\*|%|\\^|&|\\||<<|>>'
+        name: 'keyword.operator.arithmetic.odin'
+        match: '!|\\+(?!\\+)|-(?!-)|/|\\*|%|\\^|&|\\||<<|>>|\\+\\+|--'
       }
       {
         comment: 'Common non-existant operators'
-        name: 'invalid.illegal.jai'
-        match: '\\+\\+|--'
+        name: 'invalid.illegal.odin'
+        match: '' #'\\+\\+|--'
       }
       {
         comment: 'Keyword'
-        name: 'keyword.other.jai'
-        match: '\\b(new|defer)\\b'
+        name: 'keyword.other.odin'
+        match: '\\b(new|defer|free)\\b'
       }
     ]
   }
-  
+
   # Punctuation
-  
+
   'punctuation':
     patterns: [
       { include: '#punctuation_brackets' }
       { include: '#punctuation_parentheses' }
     ]
-  
+
   'punctuation_brackets':
     comment: '[ and ]'
-    name: 'punctuation.bracket.jai'
+    name: 'punctuation.bracket.odin'
     match: '[\\[\\]]'
-  
+
   'punctuation_parentheses':
     comment: '( and )'
-    name: 'punctuation.parenthesis.jai'
+    name: 'punctuation.parenthesis.odin'
     match: '[\\(\\)]'
-  
+
   #   #####
   #  #     # ##### #####  #    #  ####  ##### #    # #####  ######  ####
   #  #         #   #    # #    # #    #   #   #    # #    # #      #
@@ -297,32 +297,32 @@ repository: {
   #        #   #   #####  #    # #        #   #    # #####  #           #
   #  #     #   #   #   #  #    # #    #   #   #    # #   #  #      #    #
   #   #####    #   #    #  ####   ####    #    ####  #    # ######  ####
-  
+
   'generic':
     match: '(\\$)([\\p{Alpha}_][\\w]*)'
-    name: 'meta.type.generic.jai'
+    name: 'meta.type.generic.odin'
     captures:
-      '1': { name: 'punctuation.type.generic.jai' }
-      '2': { name: 'entity.name.type.generic.jai' }
-  
+      '1': { name: 'punctuation.type.generic.odin' }
+      '2': { name: 'entity.name.type.generic.odin' }
+
   'block':
     begin: '({)'
     beginCaptures:
-      '1': { name: 'punctuation.brace.open.jai' }
+      '1': { name: 'punctuation.brace.open.odin' }
     end: '(})'
     endCaptures:
-      '1': { name: 'punctuation.brace.close.jai' }
+      '1': { name: 'punctuation.brace.close.odin' }
     patterns: [
       { include: '$self' }
     ]
-  
+
   'function_declaration':
     begin: '([\\p{Alpha}_][\\w]*)\\s*(::)\\s*(?=\\()'
     beginCaptures:
-      '1': { name: 'entity.name.function.jai' }
-      '2': { name: 'keyword.operator.misc.jai' }
+      '1': { name: 'entity.name.function.odin' }
+      '2': { name: 'keyword.operator.misc.odin' }
     end: '(?={|;)'
-    name: 'meta.definition.function.jai'
+    name: 'meta.definition.function.odin'
     patterns: [
       { include: '#comments' }
       { include: '#block' }
@@ -330,25 +330,25 @@ repository: {
       { include: '#operators' }
       { include: '#value_keywords' }
     ]
-  
+
   'function_call':
     match: '\\b([\\p{Alpha}_][\\w]*)\\s*(?=\\()'
     captures:
-      '1': { name: 'entity.name.function.jai' }
-  
+      '1': { name: 'entity.name.function.odin' }
+
   'special_function_call':
     match: '\\b(free|cast|print|concatenate)\\s*(?=\\()'
     captures:
-      '1': { name: 'support.function.core.jai' }
-  
+      '1': { name: 'support.function.core.odin' }
+
   'struct_declaration':
     begin: '([\\p{Alpha}_][\\w]*)\\s*(::)\\s*(struct\\b)'
     beginCaptures:
-      '1': { name: 'entity.name.type.class.jai' }
-      '2': { name: 'keyword.operator.misc.jai' }
-      '3': { name: 'storage.type.core.jai' }
+      '1': { name: 'entity.name.type.class.odin' }
+      '2': { name: 'keyword.operator.misc.odin' }
+      '3': { name: 'storage.type.core.odin' }
     end: '(?={)'
-    name: 'meta.definition.struct.jai'
+    name: 'meta.definition.struct.odin'
     patterns: [
       { include: '#comments' }
       { include: '#block' }
@@ -356,29 +356,29 @@ repository: {
       { include: '#operators' }
       { include: '#value_keywords' }
     ]
-  
+
   'constant_declaration':
     begin: '([\\p{Alpha}_][\\w]*)\\s*(::)'
     beginCaptures:
-      '1': { name: 'variable.constant.jai' }
-      '2': { name: 'keyword.operator.misc.jai' }
+      '1': { name: 'variable.constant.odin' }
+      '2': { name: 'keyword.operator.misc.odin' }
     end: '(?=;|$)'
-    name: 'meta.definition.constant.jai'
+    name: 'meta.definition.constant.odin'
     patterns: [
       { include: '#comments' }
       { include: '#expressions' }
     ]
-  
+
   'sem_processor':
-    match: '((#)(?:(run|import|load|type|bake|unshared|char|foreign|foreign_system_library|body_text)|(if)|(\\w+)))\\b'
+    match: '((#)(?:(run|import|load|type|bake|unshared|char|foreign|foreign_system_library|body_text|ordered)|(if)|(\\w+)))\\b'
     captures:
-      '1': { name: 'keyword.control.directive.jai' }
-      '2': { name: 'punctuation.definition.directive.jai' }
-      '3': { name: 'keyword.control.directive.jai' }
-      '4': { name: 'keyword.control.directive.conditional.jai' }
-      '5': { name: 'invalid.illegal.jai' }
-    name: 'meta.preprocessor.jai'
-  
+      '1': { name: 'keyword.control.directive.odin' }
+      '2': { name: 'punctuation.definition.directive.odin' }
+      '3': { name: 'keyword.control.directive.odin' }
+      '4': { name: 'keyword.control.directive.conditional.odin' }
+      '5': { name: 'invalid.illegal.odin' }
+    name: 'meta.preprocessor.odin'
+
   #   #####
   #  #     # ###### #    # ###### #####    ##   #
   #  #       #      ##   # #      #    #  #  #  #
@@ -386,7 +386,7 @@ repository: {
   #  #     # #      #  # # #      #####  ###### #
   #  #     # #      #   ## #      #   #  #    # #
   #   #####  ###### #    # ###### #    # #    # ######
-  
+
   'expressions':
     patterns: [
       { include: '#comments' }
@@ -406,7 +406,7 @@ patterns: [
   { include: '#punctuation' }
   { include: '#modifiers' }
   { include: '#other_keywords' }
-  
+
   # Structures
   { include: '#block' }
   { include: '#function_declaration' }
