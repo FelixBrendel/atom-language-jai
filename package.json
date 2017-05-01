@@ -1,6 +1,6 @@
 {
   "name": "language-odin",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Odin language support for Atom",
   "engines": {
     "atom": ">0.50.0 <2.0.0"
