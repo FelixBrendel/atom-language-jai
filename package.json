@@ -1,24 +1,65 @@
 {
-  "name": "language-odin",
-  "version": "0.4.0",
-  "description": "Odin language support for Atom",
-  "engines": {
-    "atom": ">0.50.0 <2.0.0"
+  "_args": [
+    [
+      {
+        "raw": "/tmp/d-11742-2853-rualjw.kofik0ggb9/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/tmp/d-11742-2853-rualjw.kofik0ggb9/package.tgz",
+        "spec": "/tmp/d-11742-2853-rualjw.kofik0ggb9/package.tgz",
+        "type": "local"
+      },
+      "/tmp/apm-install-dir-11742-2853-109fd29.sxtuvdkj4i"
+    ]
+  ],
+  "_from": "../d-11742-2853-rualjw.kofik0ggb9/package.tgz",
+  "_id": "language-odin@0.4.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/language-odin",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "/tmp/d-11742-2853-rualjw.kofik0ggb9/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/tmp/d-11742-2853-rualjw.kofik0ggb9/package.tgz",
+    "spec": "/tmp/d-11742-2853-rualjw.kofik0ggb9/package.tgz",
+    "type": "local"
   },
-  "dependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/FelixBrendel/atom-language-odin.git"
-  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:../d-11742-2853-rualjw.kofik0ggb9/package.tgz",
+  "_shasum": "b7ec4835289c575a2eb3880968d5f3a598fccdb7",
+  "_shrinkwrap": null,
+  "_spec": "/tmp/d-11742-2853-rualjw.kofik0ggb9/package.tgz",
+  "_where": "/tmp/apm-install-dir-11742-2853-109fd29.sxtuvdkj4i",
   "bugs": {
     "url": "https://github.com/FelixBrendel/atom-language-odin/issues"
   },
+  "dependencies": {},
+  "description": "Odin language support for Atom",
+  "devDependencies": {},
+  "engines": {
+    "atom": ">0.50.0 <2.0.0"
+  },
+  "homepage": "https://github.com/FelixBrendel/atom-language-odin#readme",
   "keywords": [
     "language",
     "grammar",
     "syntax",
     "odin"
   ],
+  "license": "MIT",
+  "name": "language-odin",
+  "optionalDependencies": {},
+  "readme": "# Odin language support in Atom\n\n\nAdds syntax highlighting and snippets for [Odin](https://github.com/gingerBill/Odin) files in [Atom](http://atom.io/).\n\n**Note:** Odin is still incomplete and has no formal specification yet. There are likely missing or improperly-highlighted structures.\n\n## Install\n\nInstall the package `language-odin` in Atom (Preferences->Packages) or Atom's package manager:\n\n```bash\n$ apm install language-odin\n```\n",
   "readmeFilename": "README.md",
-  "license": "MIT"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FelixBrendel/atom-language-odin.git"
+  },
+  "version": "0.4.0"
 }
