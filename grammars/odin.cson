@@ -161,6 +161,7 @@ repository: {
       { include: '#value_keywords' }
       { include: '#modifiers' }
       { include: '#control' }
+      { include: '#imports' }
     ]
 
   'value_keywords':
@@ -178,7 +179,7 @@ repository: {
       {
         comment: 'Storage modifier'
         name: 'storage.modifier.odin'
-        match: '\\b(SOA|using|immutable)\\b'
+        match: '\\b(const|using|type|proc)\\b'
       }
     ]
 
@@ -188,15 +189,15 @@ repository: {
     patterns: [
       {
         name: 'storage.type.core.odin'
-        match: '\\b(int|float|double|bool|rune|string|void|vector)\\b'
+        match: '\\b(int|uint|float|bool|rune|string|vector|map|bit_field)\\b'
       }
       {
         name: 'storage.type.core.odin'
-        match: '\\b(u8|u16|u32|u64|f32|f64|i8|i16|i32|i64)\\b'
+        match: '\\b(u8|u16|u32|u64|u128|f32|f64|i8|i16|i32|i128)\\b'
       }
       {
         name: 'storage.type.struct.core.odin'
-        match: '\\b(Type)\\b'
+        match: '\\b(dynamic)\\b'
       }
     ]
 
@@ -205,7 +206,14 @@ repository: {
   'control':
     comment: 'Control keyword'
     name: 'keyword.control.odin'
-    match: '\\b(break|continue|else|if|in|for|match|return|give)\\b'
+    match: '\\b(if|else|when|for|in|defer|match|return)\\b'
+
+  ## Control
+
+  'imports':
+    comment: 'Import keyword'
+    name: 'keyword.control.odin'
+    match: '\\b(import|import_load)\\b'
 
   ## Special values
 
@@ -242,7 +250,7 @@ repository: {
       {
         comment: ''
         name: 'keyword.operator.odin'
-        match: '->|=>|::|:|\\$\\$|\\.\\.|xx'
+        match: '->|:|\\.\\.'
       }
       {
         comment: 'Assignment operator'
@@ -267,7 +275,7 @@ repository: {
       {
         comment: 'Keyword'
         name: 'keyword.other.odin'
-        match: '\\b(new|defer|free)\\b'
+        match: '\\b(var|let)\\b'
       }
     ]
   }
@@ -316,19 +324,37 @@ repository: {
       { include: '$self' }
     ]
 
-  'function_declaration':
-    begin: '([\\p{Alpha}_][\\w]*)\\s*(::)\\s*(?=\\()'
+  'parameters':
+    begin: '(:)\\s*((\\^\\s*)?(\\[\\s*(\\S*)?\\s*\\]\\s*)?((int|uint|float|bool|rune|string|vector|map|bit_field|u8|u16|u32|u64|u128|f32|f64|i8|i16|i32|i128)|([\\p{Alpha}_][\\w]*)))'
     beginCaptures:
-      '1': { name: 'entity.name.function.odin' }
-      '2': { name: 'keyword.operator.misc.odin' }
-    end: '(?={|;)'
+        '7': { name: 'storage.type.struct.core.odin' }
+        '8': { name: 'entity.name.type.odin' }
+    end: '(?=,|\\))'
+
+  'return_type':
+    begin: '(->)\\s*((\\^\\s*)?(\\[\\s*(\\S*)?\\s*\\]\\s*)?((int|uint|float|bool|rune|string|vector|map|bit_field|u8|u16|u32|u64|u128|f32|f64|i8|i16|i32|i128)|([\\p{Alpha}_][\\w]*)))'
+    beginCaptures:
+        '1': { name: 'keyword.operator.odin' }
+        '7': { name: 'storage.type.struct.core.odin' }
+        '8': { name: 'entity.name.type.odin' }
+    end: '(?={)'
+
+  'function_declaration':
+    # begin: '([\\p{Alpha}_][\\w]*)\\s*(::)\\s*(?=\\()'
+    begin: '(proc)\\s+([\\p{Alpha}_][\\w]*)\\s*(?=\\()'
+    beginCaptures:
+      '1': { name: 'storage.type.odin' }
+      '2': { name: 'entity.name.function.odin' }
+    end: '(?={)'
     name: 'meta.definition.function.odin'
     patterns: [
+      { include: '#parameters' }
+      { include: '#value_keywords' }
+      { include: '#return_type' }
       { include: '#comments' }
+      { include: '#operators' }
       { include: '#block' }
       { include: '#sem_processor' }
-      { include: '#operators' }
-      { include: '#value_keywords' }
     ]
 
   'function_call':
@@ -337,15 +363,16 @@ repository: {
       '1': { name: 'entity.name.function.odin' }
 
   'special_function_call':
-    match: '\\b(free|cast|print|concatenate)\\s*(?=\\()'
+    match: '\\b(new|free|append|len|cap|size_of|align_of|offset_of|assert)\\s*(?=\\()'
     captures:
       '1': { name: 'support.function.core.odin' }
 
   'struct_declaration':
-    begin: '([\\p{Alpha}_][\\w]*)\\s*(::)\\s*(struct\\b)'
+    # begin: '([\\p{Alpha}_][\\w]*)\\s*(::)\\s*(struct\\b)'
+    begin: '(type)\\s+([\\p{Alpha}_][\\w]*)\\s+(struct\\b)'
     beginCaptures:
-      '1': { name: 'entity.name.type.class.odin' }
-      '2': { name: 'keyword.operator.misc.odin' }
+      '1': { name: 'storage.type.odin' }
+      '2': { name: 'entity.name.type.class.odin' }
       '3': { name: 'storage.type.core.odin' }
     end: '(?={)'
     name: 'meta.definition.struct.odin'
@@ -357,26 +384,25 @@ repository: {
       { include: '#value_keywords' }
     ]
 
-  'constant_declaration':
-    begin: '([\\p{Alpha}_][\\w]*)\\s*(::)'
-    beginCaptures:
-      '1': { name: 'variable.constant.odin' }
-      '2': { name: 'keyword.operator.misc.odin' }
-    end: '(?=;|$)'
-    name: 'meta.definition.constant.odin'
-    patterns: [
-      { include: '#comments' }
-      { include: '#expressions' }
-    ]
+  # 'constant_declaration':
+  #   begin: '([\\p{Alpha}_][\\w]*)\\s*(::)'
+  #   beginCaptures:
+  #     '1': { name: 'variable.constant.odin' }
+  #     '2': { name: 'keyword.operator.misc.odin' }
+  #   end: '(?=;|$)'
+  #   name: 'meta.definition.constant.odin'
+  #   patterns: [
+  #     { include: '#comments' }
+  #     { include: '#expressions' }
+  #   ]
 
   'sem_processor':
-    match: '((#)(?:(run|import|load|type|bake|unshared|char|foreign|foreign_system_library|body_text|ordered)|(if)|(\\w+)))\\b'
+    match: '((#)(?:(foreign_library|foreign_system_library|ordered)|(\\w+)))\\b'
     captures:
       '1': { name: 'keyword.control.directive.odin' }
       '2': { name: 'punctuation.definition.directive.odin' }
       '3': { name: 'keyword.control.directive.odin' }
-      '4': { name: 'keyword.control.directive.conditional.odin' }
-      '5': { name: 'invalid.illegal.odin' }
+      '4': { name: 'invalid.illegal.odin' }
     name: 'meta.preprocessor.odin'
 
   #   #####
@@ -401,15 +427,16 @@ repository: {
 }
 
 patterns: [
+    { include: '#function_declaration' }
+    { include: '#struct_declaration' }
   { include: '#expressions' }
   { include: '#control' }
+  { include: '#imports' }
   { include: '#punctuation' }
   { include: '#modifiers' }
   { include: '#other_keywords' }
 
   # Structures
   { include: '#block' }
-  { include: '#function_declaration' }
-  { include: '#struct_declaration' }
-  { include: '#constant_declaration' }
+  # { include: '#constant_declaration' }
 ]
