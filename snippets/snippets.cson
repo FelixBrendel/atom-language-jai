@@ -1,10 +1,10 @@
 '.source.odin':
   'println':
     'prefix': 'pl'
-    'body': 'println($1);$2'
+    'body': 'println("$1");$2'
   'proc':
     'prefix': 'pr'
-    'body': '$1 :: proc ($2) $3{\n\t$4\n}'
+    'body': '$1 :: proc ($2) ${3:-> }{\n\t$4\n}'
   'struct':
     'prefix': 'st'
     'body': '$1 :: struct {\n\t$2\n}'

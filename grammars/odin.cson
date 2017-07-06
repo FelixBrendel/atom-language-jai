@@ -206,7 +206,7 @@ repository: {
   'control':
     comment: 'Control keyword'
     name: 'keyword.control.odin'
-    match: '\\b(if|else|when|for|in|defer|match|return)\\b'
+    match: '\\b(if|else|do|when|for|in|defer|match|return)\\b'
 
   ## Control
 
@@ -324,12 +324,12 @@ repository: {
       { include: '$self' }
     ]
 
-  'parameters':
-    begin: '(:)\\s*((\\^\\s*)?(\\[\\s*(\\S*)?\\s*\\]\\s*)?((int|uint|float|bool|rune|string|vector|map|bit_field|u8|u16|u32|u64|u128|f32|f64|i8|i16|i32|i128)|([\\p{Alpha}_][\\w]*)))'
+  'variable_declarations':
+    begin: '(:)\\s*((\\.\\.)?(\\^\\s*)?(\\[\\s*(\\S*)?\\s*\\]\\s*)?((int|uint|float|bool|rune|string|vector|map|bit_field|u8|u16|u32|u64|u128|f32|f64|i8|i16|i32|i128)\\b|([\\p{Alpha}_][\\w]*)))'
     beginCaptures:
-        '7': { name: 'storage.type.struct.core.odin' }
-        '8': { name: 'entity.name.type.odin' }
-    end: '(?=,|\\))'
+        '8': { name: 'storage.type.struct.core.odin' }
+        '9': { name: 'entity.name.type.odin' }
+    end: '(?=,|;|\\)|})'
 
   'return_type':
     begin: '(->)\\s*((\\^\\s*)?(\\[\\s*(\\S*)?\\s*\\]\\s*)?((int|uint|float|bool|rune|string|vector|map|bit_field|u8|u16|u32|u64|u128|f32|f64|i8|i16|i32|i128)|([\\p{Alpha}_][\\w]*)))'
@@ -341,14 +341,14 @@ repository: {
 
   'function_declaration':
     # begin: '([\\p{Alpha}_][\\w]*)\\s*(::)\\s*(?=\\()'
-    begin: '(proc)\\s+([\\p{Alpha}_][\\w]*)\\s*(?=\\()'
+    begin: '([\\p{Alpha}_][\\w]*)\\s*:\\s*:\\s*(proc)\\s*(?=\\()'
     beginCaptures:
-      '1': { name: 'storage.type.odin' }
-      '2': { name: 'entity.name.function.odin' }
+      '1': { name: 'entity.name.function.odin' }
+      '2': { name: 'storage.type.odin' }
     end: '(?={)'
     name: 'meta.definition.function.odin'
     patterns: [
-      { include: '#parameters' }
+      { include: '#variable_declarations' }
       { include: '#value_keywords' }
       { include: '#return_type' }
       { include: '#comments' }
@@ -363,26 +363,44 @@ repository: {
       '1': { name: 'entity.name.function.odin' }
 
   'special_function_call':
-    match: '\\b(new|free|append|len|cap|size_of|align_of|offset_of|assert)\\s*(?=\\()'
+    match: '\\b(new|free|append|len|cap|size_of|align_of|offset_of|assert|panic)\\s*(?=\\()'
     captures:
       '1': { name: 'support.function.core.odin' }
 
   'struct_declaration':
     # begin: '([\\p{Alpha}_][\\w]*)\\s*(::)\\s*(struct\\b)'
-    begin: '(type)\\s+([\\p{Alpha}_][\\w]*)\\s+(struct\\b)'
+    begin: '([\\p{Alpha}_][\\w]*)\\s*:\\s*:\\s*((struct|enum|union|raw_union)\\b)'
     beginCaptures:
-      '1': { name: 'storage.type.odin' }
-      '2': { name: 'entity.name.type.class.odin' }
-      '3': { name: 'storage.type.core.odin' }
-    end: '(?={)'
+      '1': { name: 'entity.name.type.class.odin' }
+      '2': { name: 'storage.type.core.odin' }
+    end: '(?=})'
     name: 'meta.definition.struct.odin'
     patterns: [
+      { include: '#variable_declarations' }
       { include: '#comments' }
-      { include: '#block' }
+    #   { include: '#block' }
       { include: '#sem_processor' }
       { include: '#operators' }
       { include: '#value_keywords' }
     ]
+
+    # 'enum_declaration':
+    #   # begin: '([\\p{Alpha}_][\\w]*)\\s*(::)\\s*(struct\\b)'
+    #   begin: '(type)\\s+([\\p{Alpha}_][\\w]*)\\s+(enum\\b)'
+    #   beginCaptures:
+    #     '1': { name: 'storage.type.odin' }
+    #     '2': { name: 'entity.name.type.class.odin' }
+    #     '3': { name: 'storage.type.core.odin' }
+    #   end: '(?=})'
+    #   name: 'meta.definition.enum.odin'
+    #   patterns: [
+    #     { include: '#variable_declarations' }
+    #     { include: '#comments' }
+    #   #   { include: '#block' }
+    #     { include: '#sem_processor' }
+    #     { include: '#operators' }
+    #     { include: '#value_keywords' }
+    #   ]
 
   # 'constant_declaration':
   #   begin: '([\\p{Alpha}_][\\w]*)\\s*(::)'
@@ -427,7 +445,10 @@ repository: {
 }
 
 patterns: [
+
+    { include: '#variable_declarations' }
     { include: '#function_declaration' }
+    # { include: '#enum_declaration' }
     { include: '#struct_declaration' }
   { include: '#expressions' }
   { include: '#control' }
